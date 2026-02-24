@@ -33,8 +33,30 @@ const track = JSON.parse(data);
 const homePath = homedir();
 console.log(homePath);
 
-const trackAda = join(homePath, "Documents", "trackada-elodie-sevestre");
-console.log(trackAda);
+const trackAda = join(homePath, "Documents");
+// console.log(trackAda);
+
+/* if (existsSync(trackAda)) {
+  console.log("folder exists");
+} else {
+  console.log("folder does'nt exist");
+}
+*/
+
+// Etape 2.1 : Vérifier que les dossiers existent
+
+for (let project of track.projects) {
+  if (existsSync(track.projects)) {
+    console.log("folder exists");
+  } else {
+    console.log("folder does'nt exist");
+  }
+  // console.log(project);
+}
+
+// Etape 2.1.1 : Transformer objet du JSON en array
+
+// Etape 2.1.2 : itérer sur l'array pour vérifier les dossiers
 
 // Etape 3 : Vérifier les fichiers
 // Etape 4 : Vérifier que Git est activé
