@@ -33,25 +33,26 @@ const track = JSON.parse(data);
 const homePath = homedir();
 console.log(homePath);
 
-const trackAda = join(homePath, "Documents");
-// console.log(trackAda);
+//const trackAda = join(homePath, "Documents", "ada");
+const trackAda = join(homePath, "Documents", "ada");
+console.log(trackAda);
 
-/* if (existsSync(trackAda)) {
+if (existsSync(trackAda)) {
   console.log("folder exists");
 } else {
-  console.log("folder does'nt exist");
+  console.log("folder doesn't exist");
 }
-*/
 
 // Etape 2.1 : Vérifier que les dossiers existent
 
-for (let project of track.projects) {
-  if (existsSync(track.projects)) {
-    console.log("folder exists");
+for (const project of track.projects) {
+  console.log(project.name);
+  const adaPath = join(trackAda, project.name);
+  if (existsSync(adaPath)) {
+    console.log(`Folder "${project.name}" exists`);
   } else {
-    console.log("folder does'nt exist");
+    console.log(`Folder "${project.name}" doesn't exist`);
   }
-  // console.log(project);
 }
 
 // Etape 2.1.1 : Transformer objet du JSON en array
