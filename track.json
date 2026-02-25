@@ -6,7 +6,7 @@
       "required": ["index.html", "index.css", "index.js"]
     },
     {
-      "name": "trackada",
+      "name": "trackada-elodie-sevestre",
       "required": ["checktrack.js", "track.json"]
     },
     {
