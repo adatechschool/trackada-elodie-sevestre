@@ -1,16 +1,8 @@
-// Affichage dans terminal
-
-// commande : node nomFichier.ext
-
-console.log("hello elo y a de l'echo"); // le terminal affiche bien le message -> OK !
-
-// Le script (checktrack.js) doit : Fichier JSON  →  Script Node.js  →  Vérifications  →  Messages dans le terminal
-
 // Etape 1 : Charger et parser en JSON le fichier track.json
 
 // Etape 1.1 : Import des modules
 
-import { readFileSync, existsSync, fstatSync } from "fs"; // vérifier l'existence du fichier JSON
+import { readFileSync, existsSync } from "fs"; // vérifier l'existence du fichier JSON
 import { homedir, version } from "os";
 import { join } from "path";
 
@@ -30,33 +22,38 @@ if (existsSync(trackAda)) {
   console.log(`Folder ada doesn't exist`);
 }
 
-// Etape 3 : Vérifier que les dossiers, le dossier .git et les fichiers existent dans ada
+// Etape 3 : Vérifier que les dossiers et les fichiers existent dans ada.
+//           Vérifier présence .git dans dossier avant de checker fichiers.
 
 for (const project of track.projects) {
-  //console.log(project.name);
-  const folder = join(trackAda, project.name);
-
-  if (existsSync(folder)) {
-    console.log(`Folder "${project.name}" exists`);
+  // for...of nous permet d'itérer dans des objets
+  const folder = join(trackAda, project.name); // join() permet de rajouter
+  if (!existsSync(folder)) {
+    console.log(`❌ Folder "${project.name}" doesn't exist`);
   } else {
-    console.log(`Folder "${project.name}" doesn't exist`);
+    console.log(`✅ Folder "${project.name}" exists`);
   }
 
   const gitPath = join(folder, ".git");
-
-  if (existsSync(gitPath)) {
-    console.log(`Folder "${".git"}" exists`);
+  if (!existsSync(gitPath)) {
+    console.log(`❌ Git repository not initialized`);
   } else {
-    console.log(`Folder "${".git"}" doesn't exist`);
+    console.log(`✅ Git repository initialized`);
   }
-
-  for (const fileName of project.required) {
-    const filePath = join(folder, fileName);
-
-    if (existsSync(filePath)) {
-      console.log(`File "${project.required}" exists`);
-    } else {
-      console.log(`File "${project.required}" doesn't exist`);
+  if (project.required.length > 0) {
+    const noFiles = [];
+    for (const fileName of project.required) {
+      const filePath = join(folder, fileName);
+      if (!existsSync(filePath)) {
+        noFiles.push(fileName);
+      }
     }
+
+    if (noFiles.length > 0) {
+      console.log(`❌ Missing ${noFiles.join(", ")}`);
+    } else {
+      console.log(`✅ All required files exist`);
+    }
+    console.log(""); // espace entre projets
   }
 }
