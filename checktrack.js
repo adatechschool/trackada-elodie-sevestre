@@ -26,8 +26,7 @@ if (existsSync(trackAda)) {
 let count = 0; // variable pour le calcul du %
 
 for (const project of track.projects) {
-  // for...of nous permet d'itérer dans des objets
-  const folder = join(trackAda, project.name); // join() permet de rajouter
+  const folder = join(trackAda, project.name);
   let projectComplete = true; // variable pour projet 100%
   if (!existsSync(folder)) {
     console.log(`❌ Folder "${project.name}" doesn't exist`);
@@ -54,21 +53,25 @@ for (const project of track.projects) {
       }
     }
     if (noFiles.length === 1) {
-      console.log(`Missing : ${noFiles[0]}`);
+      console.log(`- Missing : ${noFiles[0]}`);
       projectComplete = false;
     } else if (noFiles.length > 1) {
       projectComplete = false;
       const firstFiles = noFiles.slice(0, noFiles.length - 1);
-      // On récupère seulement le dernier
-      const lastFile = noFiles[noFiles.length - 1]; // String
-      // On affiche le tout dans une seule phrase
+      const lastFile = noFiles[noFiles.length - 1];
       console.log(`- Missing : ${firstFiles.join(", ")} and ${lastFile}`);
     }
   }
 
+  console.log(""); // ajout d'une ligne vide entre chaque projet
+
   // Si le projet est complètement valide → incrémenter let count = 0;
+
+  if (projectComplete === true) {
+    count++;
+  }
 }
-// Étape 4 : Calculer le pourcentage final
+// Étape 5 : Calculer le pourcentage final
 const totalProjects = track.projects.length;
 const percentage = Math.round((count / totalProjects) * 100);
 
