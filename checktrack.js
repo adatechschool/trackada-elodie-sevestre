@@ -4,6 +4,9 @@ import { readFileSync, existsSync } from "fs"; // vérifier l'existence du fichi
 import { homedir, version } from "os";
 import { join } from "path";
 
+// vérifier présence track.json et/ou s'il est vide
+// comprendre ce qu'il se passe quand ça ne fonctionne pas
+
 // Etape 2 : Lire le fichier JSON et le parser pour l'utiliser dans JS
 
 const data = readFileSync("track.json", "utf-8");
