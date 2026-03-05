@@ -15,12 +15,12 @@ const track = JSON.parse(data);
 // Etape 3 : Vérifier que le dossier ada existe dans le dossier home (~)
 
 const homePath = homedir();
-const trackAda = join(homePath, "Documents", "ada");
+const trackAda = join(homePath, "Documents", "git-ada-project-trackada");
 
 if (existsSync(trackAda)) {
-  console.log(`Folder ada exists`);
+  console.log(`Folder Ada exists`);
 } else {
-  console.log(`Folder ada doesn't exist`);
+  console.log(`Folder Ada doesn't exist`);
 }
 
 // Etape 4 : Vérifier que les dossiers et les fichiers existent dans ada.
